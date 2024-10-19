@@ -3,7 +3,7 @@ import "./Projects.css";
 
 function Projects() {
     return (
-        <div className="projects-section">
+        <section className="projects-section" id="projects">
             <h2 className="projects-title">Projects</h2>
             <div className="projects-container">
                 <div className="project">
@@ -49,7 +49,7 @@ function Projects() {
                     <p className="project-tech">Tech: Python, JavaScript, HTML/CSS, OpenAI API</p>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

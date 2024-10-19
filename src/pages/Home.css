@@ -6,12 +6,8 @@
     font-style: normal; /* 字体样式 */
 }
 
-.home {
-    height: 100vh;
-}
-
 .gap {
-    height: 30px;
+    height: 5rem;
 }
 
 .body {
@@ -20,15 +16,7 @@
     grid-template-columns: 1fr 1fr; /* 三列布局 */
     gap: 3rem;
     width: 100%;
-    padding: 1em;
     box-sizing: border-box;
-}
-
-@media (max-aspect-ratio: 8/10) {
-    .body {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-    }
 }
 
 .body .left {
@@ -52,4 +40,24 @@
 
 .body right {
     text-align: left;
+}
+
+@media (max-aspect-ratio: 1) {
+    .body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 0;
+    }
+    .body .left {
+        text-align: center;
+    }
+    .body .left h1 {
+        text-align: center;
+    }
+    .body .left h2 {
+        text-align: center;
+    }
+    .body .right {
+        text-align: center;
+    }
 }

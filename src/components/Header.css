@@ -16,14 +16,14 @@
 .header-left .name {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #3232ec;
+    color: #3270af;
     /* 可根据需要调整文本颜色 */
 }
 
 .header-right a {
     display: flex;
     align-items: center;
-    color: #548cc4;
+    color: #3270af;
     /* 可根据需要调整链接颜色 */
     font-size: 1rem;
 }

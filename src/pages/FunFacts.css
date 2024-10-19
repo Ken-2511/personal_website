@@ -1,0 +1,23 @@
+/* FunFacts.css */
+
+/* 设置整个 section 的样式 */
+.fun-facts-section {
+    padding: 2em;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 2em auto;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
+}
+
+/* 设置 p 标签的样式 */
+.fun-facts-section p {
+    font-size: 1.2rem;
+    color: #333; /* 深色文字 */
+    margin: 0;
+    line-height: 1.5; /* 增加行高，使文本更易读 */
+}

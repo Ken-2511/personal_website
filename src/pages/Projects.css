@@ -6,6 +6,9 @@
     max-width: 800px;
     margin: 2em auto;
     font-family: 'Arial', sans-serif;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
 }
 
 .projects-title {
