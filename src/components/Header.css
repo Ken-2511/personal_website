@@ -1,0 +1,34 @@
+/* filename: Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    height: 64px;
+}
+
+.header-right {
+    height: 100%;
+    margin: 0;
+}
+
+.header-left .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    /* 可根据需要调整文本颜色 */
+}
+
+.header-right a {
+    display: flex;
+    align-items: center;
+    color: #548cc4;
+    /* 可根据需要调整链接颜色 */
+    font-size: 1rem;
+}
+
+.header-right a:hover {
+    text-decoration: underline;
+    /* 鼠标悬停时增加下划线效果 */
+}
