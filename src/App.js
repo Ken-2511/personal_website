@@ -5,8 +5,9 @@ function App() {
   return (
     <div className="container">
       <header>
+        <meta name="Yongkang Cheng - University of Toronto" content="Personal Portfolio" />
         <h1>Yongkang Cheng</h1>
-        <p>International student in Computer Science at the University of Toronto, specializing in AI and deep learning.</p>
+        <p>2nd year student in Computer Engineering at the University of Toronto</p>
       </header>
 
       <nav>
