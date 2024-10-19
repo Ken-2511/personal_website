@@ -7,6 +7,17 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: #fdfdfd;
   color: #333;
+
+  background: linear-gradient(
+      to bottom,
+      #a6e1fa 0%,
+      #d0e8fc 50%,
+      #ffffff 100%
+  );
+  background-size: cover; /* 确保背景覆盖整个视口 */
+  background-repeat: no-repeat; /* 不重复背景 */
+  background-attachment: fixed; /* 背景固定，不随内容滚动 */
+  background-position: center; /* 背景居中 */
 }
 
 a {

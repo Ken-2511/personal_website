@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     height: 64px;
 }
 
@@ -16,7 +16,7 @@
 .header-left .name {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: #3232ec;
     /* 可根据需要调整文本颜色 */
 }
 

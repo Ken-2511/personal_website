@@ -1,0 +1,23 @@
+.my-photo {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.photo {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 1s ease; /* 动画过渡 */
+    opacity: 1;
+}
+
+.photo.fade {
+    opacity: 0; /* 渐隐 */
+}
+
+.photo.fade-in {
+    opacity: 1; /* 渐显 */
+}
