@@ -3,6 +3,8 @@
 import React from 'react';
 import './Home.css';
 import MyPhoto from '../components/MyPhoto';
+import Skills from '../pages/Skills';
+import Projects from '../pages/Projects';
 
 function Home() {
     return (
@@ -19,6 +21,8 @@ function Home() {
             <MyPhoto />
             </div>
         </div>
+        <Skills />
+        <Projects />
         </>
     );
 }

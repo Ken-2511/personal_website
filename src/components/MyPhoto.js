@@ -8,7 +8,7 @@ function MyPhoto() {
         process.env.PUBLIC_URL + "/assets/butterfly.jpg",
         process.env.PUBLIC_URL + "/assets/photo2.png",
         process.env.PUBLIC_URL + "/assets/photogate.jpg",
-        process.env.PUBLIC_URL + "/assets/rb.jpg",
+        // process.env.PUBLIC_URL + "/assets/rb.jpg",
         process.env.PUBLIC_URL + "/assets/kp.jpg",
         process.env.PUBLIC_URL + "/assets/toronto.jpg",
     ], []);

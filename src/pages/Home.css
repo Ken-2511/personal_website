@@ -7,15 +7,20 @@
 }
 
 .gap {
-    height: 5rem;
+    height: 0rem;
 }
+
+/* * {
+    border: 1px solid red;
+} */
 
 .body {
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr; /* 三列布局 */
+    grid-template-columns: 1fr 1fr; /* 两列布局 */
     gap: 3rem;
     width: 100%;
+    height: calc(100vh - 64px);
     box-sizing: border-box;
 }
 
@@ -47,6 +52,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 0;
+        height: auto;
     }
     .body .left {
         text-align: center;
