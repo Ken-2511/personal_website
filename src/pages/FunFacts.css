@@ -1,10 +1,13 @@
 /* FunFacts.css */
 
+/* * {
+    border: 1px solid red;
+} */
+
 /* 设置整个 section 的样式 */
 .fun-facts-section {
     padding: 2em;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+    border-radius: 1em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 2em auto;
@@ -20,4 +23,42 @@
     color: #333; /* 深色文字 */
     margin: 0;
     line-height: 1.5; /* 增加行高，使文本更易读 */
+}
+
+
+.fun-fact-card {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1em;
+    margin: 1em 0;
+    gap: 0.3em;
+    border-radius: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fun-fact-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.fun-fact-card p {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.fun-fact-card .img-container {
+    margin-left: auto;
+}
+
+.fun-fact-card img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
