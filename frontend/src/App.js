@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
 import FunFacts from './pages/FunFacts';
+import Chat from './pages/Chat';
+import NotFound from './pages/NotFound';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/fun-facts" element={<FunFacts />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
