@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Smiley-Sans'; /* 使用自定义字体 */
+    src: url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.otf.woff2') format('woff2'), 
+         url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.NotFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px); /* 占满整个视口高度（减去导航栏的高度） */
+    text-align: center;
+    font-family: 'Smiley-Sans';
+    color: #333; /* 文本颜色 */
+}
+
+.NotFound h1 {
+    font-size: 2rem; /* 放大 404 字体 */
+    margin: 0;
+    color: #000000; /* 使用醒目的颜色 */
+}
+
+.NotFound p {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.NotFound a {
+    color: #0077cc; /* 链接颜色 */
+    text-decoration: none;
+}
+
+@media (max-aspect-ratio: 1) {
+    .NotFound {
+        height: auto;
+        padding: 2rem 1rem; /* 为移动端增加内边距 */
+    }
+
+    .NotFound h1 {
+        font-size: 4rem; /* 调整移动端的标题字体大小 */
+    }
+
+    .NotFound p {
+        font-size: 1.2rem; /* 调整移动端的段落字体大小 */
+    }
+}
