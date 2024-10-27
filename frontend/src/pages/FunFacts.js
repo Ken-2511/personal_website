@@ -1,6 +1,5 @@
 import React from "react";
 import "./FunFacts.css";
-import Header from "../components/Header";
 
 function FunFactCard({ title, description, image}) {
     // title and dectiprion are required
@@ -66,8 +65,6 @@ function FunFacts() {
     
     
     return (
-        <>
-        {/* <Header /> */}
         <section className="fun-facts-section" id="fun-facts">
             <h1>Fun Facts</h1>
             <div className="fun-facts-container">
@@ -76,7 +73,6 @@ function FunFacts() {
                 ))}
             </div>
         </section>
-        </>
     );
 }
 

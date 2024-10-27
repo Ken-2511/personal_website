@@ -1,11 +1,8 @@
 import React from "react";
 import "./Skills.css";
-import Header from "../components/Header";
 
 function Skills() {
     return (
-        <>
-        {/* <Header /> */}
         <section className="skills-section" id="skills">
             <h2 className="skills-title">Technical Skills</h2>
             <div className="skills-container">
@@ -40,7 +37,6 @@ function Skills() {
                 </div>
             </div>
         </section>
-        </>
     );
 }
 

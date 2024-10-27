@@ -5,12 +5,10 @@ import './Home.css';
 import MyPhoto from '../components/MyPhoto';
 import Skills from './Skills';
 import Projects from './Projects';
-import Header from '../components/Header';
 
 function Home() {
     return (
         <>
-        {/* <Header /> */}
         <div className='gap'/>
         <div className="body">
             <div className="left">

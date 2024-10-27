@@ -36,16 +36,21 @@
   }
   
   .chat-message.user {
-    /* background-color: #daf8e3; */
+    background-color: #daf8e3;
     text-wrap: wrap;
     text-align: end;
-    
+    width: fit-content;
+    margin-right: 0;
+    margin-left: auto;
   }
   
   .chat-message.bot {
-    /* background-color: #f1f1f1; */
+    background-color: #f1f1f1;
     text-wrap: wrap;
     text-align: start;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: 0;
   }
   
   .input-container {

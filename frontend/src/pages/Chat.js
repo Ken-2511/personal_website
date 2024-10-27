@@ -1,7 +1,6 @@
 // Chat.js
 
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import './Chat.css'; // 用于自定义样式
 
 const Chat = () => {

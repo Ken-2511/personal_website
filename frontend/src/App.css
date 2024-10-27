@@ -10,9 +10,9 @@ body {
 
   background: linear-gradient(
       to bottom,
-      #a6e1fa 0%,
-      #d0e8fc 50%,
-      #ffffff 100%
+      #9bdcf8 0%,
+      #bdb7fd 50%,
+      #dfbeff 100%
   );
   background-size: cover; /* 确保背景覆盖整个视口 */
   background-repeat: no-repeat; /* 不重复背景 */
