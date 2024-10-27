@@ -1,37 +1,75 @@
-import React from "react";
-import "./Chat.css";
+// Chat.js
 
-function Chat() {
-    function handleSend() {
-        const input = document.getElementById("chat-input");
-        const message = input.value;
-        if (message) {
-            // alert(`You typed: ${message}`);
-            fetch("/api/chat", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import './Chat.css'; // 用于自定义样式
+
+const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+  async function getResponse(input) {
+    const response = await fetch(`/api/chat`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ message: message }),
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data.response);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                alert("An error occurred while sending your message.");
-            });
-            input.value = "";
+            body: JSON.stringify({ message: input })
         }
-    }
-    return (
-        <div className="Chat">
-        <p>Chat with me!</p>
-        <input type="text" placeholder="Type a message..." id="chat-input" />
-        <button onClick={handleSend}>Send</button>
-        </div>
     );
-}
+    const data = await response.json();
+    return data.response;
+  }
+
+  // 处理发送消息
+  const handleSendMessage = () => {
+    if (input.trim()) {
+      setMessages((messages) => [...messages, { text: input, sender: "user" }]);
+      setInput("");
+      getResponse(input).then((data) => {
+        setMessages((messages) => [...messages, { text: data, sender: "bot" }]);
+      });
+    }
+  };
+
+  // 处理输入框内容变化
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  // 处理回车键发送消息
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
+  return (
+    <div className="root">
+      <Header />
+      <div className="chat-container">
+        <div className="chat-box">
+          {messages.map((message, index) => (
+            <div key={index} className={`chat-message ${message.sender}`}>
+              {message.text}
+            </div>
+          ))}
+        </div>
+        
+      </div>
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          value={input}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
+    </div>
+  );
+};
 
 export default Chat;

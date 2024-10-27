@@ -1,69 +1,85 @@
-@font-face {
-    font-family: 'Smiley-Sans';
-    src: url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.otf.woff2') format('woff2'), 
-         url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+/* Chat.css */
+
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.Chat {
+.chat-container {
+    width: 100%;
+    max-width: 50rem;
+    flex-grow: 1;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 200px); /* 使其占满整个视口高度（减去导航栏） */
-    font-family: 'Smiley-Sans';
-    color: #333;
-}
-
-.Chat p {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 1rem 0;
-}
-
-#chat-input {
-    width: 80%;
-    max-width: 400px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-}
-
-#chat-input:focus {
-    border-color: #007bff; /* 输入框聚焦时的边框颜色 */
-    outline: none;
-}
-
-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: white;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
+    border-radius: 1em;
+    text-align: end;
+  }
+  
+  .chat-box {
+    flex: 1;
+    padding: 10px;
+    height: 300px;
+  }
+  
+  .chat-message {
+    margin: 10px 5px;
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+  
+  .chat-message.user {
+    /* background-color: #daf8e3; */
+    text-wrap: wrap;
+    text-align: end;
+    
+  }
+  
+  .chat-message.bot {
+    /* background-color: #f1f1f1; */
+    text-wrap: wrap;
+    text-align: start;
+  }
+  
+  .input-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 auto;
+    bottom: 0;
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  input[type="text"] {
+    flex: 1;
+    padding: 10px;
     border: none;
-    border-radius: 4px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 1em;
+  }
+  
+  button {
+    padding: 0 15px;
+    border: none;
+    background-color: #8b4caf;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3; /* 悬停时的按钮颜色 */
-}
-
-button:active {
-    background-color: #003f7f; /* 按下按钮时的颜色 */
-}
-
-@media (max-width: 600px) {
-    #chat-input {
-        width: 90%; /* 在小屏幕上增加输入框的宽度 */
-    }
-
-    button {
-        width: 90%;
-        max-width: 200px;
-    }
-}
+    border-radius: 1em;
+  }
+  
+  button:hover {
+    background-color: #6a3e8b;
+  }
+  

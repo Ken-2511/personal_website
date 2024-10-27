@@ -9,13 +9,18 @@ function Header() {
           <h1 className="name">Yongkang Cheng</h1>
         </div>
         <nav className="header-right">
-          <Link to="/">🏠 Home</Link>
-          <Link to="/skills">💪 Skills</Link>
-          <Link to="/projects">🚀 Projects</Link>
-          <Link to="/fun-facts">😝 Fun Facts</Link>
-          {/* <a href="#skills">💪 Skills</a>
-          <a href="#projects">🚀 Projects</a>
-          <a href="#fun-facts">😝 Fun Facts</a> */}
+          <Link to="/">
+            <span role="img" aria-label="home">🏠</span> Home
+          </Link>
+          <Link to="/skills">
+            <span role="img" aria-label="muscle">💪</span> Skills
+          </Link>
+          <Link to="/projects">
+            <span role="img" aria-label="rocket">🚀</span> Projects
+          </Link>
+          <Link to="/fun-facts">
+            <span role="img" aria-label="fun">😝</span> Fun Facts
+          </Link>
         </nav>
       </header>
     );
