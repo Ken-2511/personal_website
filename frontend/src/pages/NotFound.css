@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Smiley-Sans'; /* 使用自定义字体 */
-    src: url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.otf.woff2') format('woff2'), 
-         url('/home/iwmain/Documents/personal_website/public/fonts/SmileySans-Oblique.ttf') format('truetype');
+    src: url('/fonts/SmileySans-Oblique.otf.woff2') format('woff2'), 
+         url('/fonts/SmileySans-Oblique.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
