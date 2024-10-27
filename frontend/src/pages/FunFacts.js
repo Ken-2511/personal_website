@@ -67,7 +67,7 @@ function FunFacts() {
     
     return (
         <>
-        <Header />
+        {/* <Header /> */}
         <section className="fun-facts-section" id="fun-facts">
             <h1>Fun Facts</h1>
             <div className="fun-facts-container">

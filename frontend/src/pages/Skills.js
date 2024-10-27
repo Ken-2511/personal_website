@@ -5,7 +5,7 @@ import Header from "../components/Header";
 function Skills() {
     return (
         <>
-        <Header />
+        {/* <Header /> */}
         <section className="skills-section" id="skills">
             <h2 className="skills-title">Technical Skills</h2>
             <div className="skills-container">

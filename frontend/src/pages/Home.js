@@ -10,7 +10,7 @@ import Header from '../components/Header';
 function Home() {
     return (
         <>
-        <Header />
+        {/* <Header /> */}
         <div className='gap'/>
         <div className="body">
             <div className="left">
