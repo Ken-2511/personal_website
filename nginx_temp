@@ -70,3 +70,24 @@ server {
     server_name chengyongkang.me;
     return 404; # managed by Certbot
 }
+
+# # Redirect requests from port 3030 to 3000
+# # for the React app debugging
+# server {
+#     listen 3030;
+
+#     server_name chengyongkang.me;
+
+#     location / {
+#         proxy_pass http://127.0.0.1:3000;
+#         proxy_set_header Host $host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#     }
+
+# 	location /api/ {
+# 		proxy_pass http://localhost:8000;
+# 		proxy_set_header Host $host;
+# 	}
+# }
