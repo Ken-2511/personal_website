@@ -49,6 +49,9 @@ server {
 	location /api/ {
 		proxy_pass http://localhost:8000;
 		proxy_set_header Host $host;
+		proxy_buffering off;
+		proxy_cache off;
+		chunked_transfer_encoding on;
 	}
 
     listen [::]:443 ssl ipv6only=on; # managed by Certbot

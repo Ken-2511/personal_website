@@ -7,6 +7,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [chat_id, setChatId] = useState("");
+  // const relativePath = "/api";
   const relativePath = "http://chengyongkang.me:8000/api"; // when deploying, change it to be the relative path
 
   // initialize chat_id, if not exist, get a new one from the server
