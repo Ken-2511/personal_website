@@ -11,6 +11,13 @@
     font-family: 'Arial', sans-serif;
 }
 
+.skill-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex: 1;
+}
+
 .skills-title {
     text-align: center;
     font-size: 2rem;
@@ -25,25 +32,25 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 2em;
+    flex-direction: column;
 }
 
-.skill-category {
-    flex: 1;
+.skill-group {
     min-width: 250px;
 }
 
-.skill-category h3 {
+.skill-group h3 {
     font-size: 1.5rem;
     color: #555;
     margin-bottom: 0.5em;
 }
 
-.skill-category ul {
+.skill-group ul {
     list-style: none;
     padding: 0;
 }
 
-.skill-category li {
+.skill-group li {
     background-color: #ffffff;
     padding: 0.5em;
     margin-bottom: 0.5em;
@@ -51,4 +58,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     color: #666;
     font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .skills-container {
+        flex-direction: row;
+    }
 }

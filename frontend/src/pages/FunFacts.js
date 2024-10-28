@@ -1,3 +1,5 @@
+// filename: FunFacts.js
+
 import React from "react";
 import "./FunFacts.css";
 
@@ -66,7 +68,7 @@ function FunFacts() {
     
     return (
         <section className="fun-facts-section" id="fun-facts">
-            <h1>Fun Facts</h1>
+            <h1 className="fun-facts-title">Fun Facts</h1>
             <div className="fun-facts-container">
                 {funFactsData.map((funFact, index) => (
                     <FunFactCard key={index} {...funFact} />
