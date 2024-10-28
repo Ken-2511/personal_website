@@ -1,4 +1,4 @@
-// Chat.js
+// filename: Chat.js
 
 import React, { useEffect, useState } from 'react';
 import './Chat.css'; // 用于自定义样式
@@ -42,7 +42,7 @@ const Chat = () => {
       console.error("Chat ID not found");
       return;
     }
-    const response = await fetch(`${relativePath}/chat`,
+    const response = await fetch(`${relativePath}/chat-stream`,
         {
             method: "POST",
             headers: {
@@ -54,8 +54,27 @@ const Chat = () => {
             }),
         }
     );
-    const data = await response.json();
-    return data.response;
+    if (!response.body) {
+      console.error("Failed to get response");
+      return;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let responseText = "";
+    setMessages((messages) => [...messages, { content: "", role: "assistant" }]);
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      const chunk = decoder.decode(value, { stream: true });
+      responseText += chunk;
+      setMessages((messages) => {
+        messages[messages.length - 1].content = responseText;
+        return [...messages];
+      });
+    }
   }
 
   // Define an async function to fetch chat ID
@@ -86,9 +105,7 @@ const Chat = () => {
     if (input.trim()) {
       setMessages((messages) => [...messages, { content: input, role: "user" }]);
       setInput("");
-      getResponse(input).then((data) => {
-        setMessages((messages) => [...messages, { content: data, role: "assistant" }]);
-      });
+      getResponse(input);
     }
   };
 

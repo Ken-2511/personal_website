@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# filename: chat.py
+
 # this program is responsible for handling the chat functionality
 # and retrieving the chat history from the database
 
@@ -45,19 +48,27 @@ def append_message(chat_id, role, message):
     )
 
 
-def request_chatgpt(messages, model="gpt-4o-mini"):
+def request_chatgpt_stream(chat_id, model="gpt-4o-mini"):
+    messages = get_history(chat_id)
     response = client.chat.completions.create(
         model=model,
-        messages=messages
-    ).choices[0].message.content
-    return response
+        messages=messages,
+        stream=True
+    )
+    for chunk in response:
+        if chunk.choices[0].delta.content is not None:
+            yield chunk.choices[0].delta.content
 
 
-def get_response(chat_id, message=None):
+def get_response_stream(chat_id, message=None):
     if message:
         append_message(chat_id, "user", message)
     messages = get_history(chat_id)
-    response = request_chatgpt(messages)
+    response = ""
+    for chunk in request_chatgpt_stream(messages):
+        append_message(chat_id, "assistant", chunk)
+        response += chunk
+        yield chunk
     append_message(chat_id, "assistant", response)
     return response
 
@@ -75,9 +86,7 @@ def get_history(chat_id):
     result = collection.find_one({"chat_id": chat_id})
     if result:
         return result["history"]
-    response = request_chatgpt([{"role": "system", "content": "Greet to the user!"}])
-    append_message(chat_id, "assistant", response)
-    return get_history(chat_id)
+    return []
 
 
 if __name__ == '__main__':

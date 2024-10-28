@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
+# filename: main.py
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from openai import OpenAI
-import os
+from fastapi.responses import StreamingResponse
 import subprocess
 import chat
 
@@ -41,10 +42,16 @@ async def hello():
     return {"message": "Hello, World!"}
 
 
-@app.post("/api/chat")
-async def chatgpt(cm: ChatMessage):
-    response = chat.get_response(cm.chat_id, cm.message)
-    return {"response": response}
+@app.post("/api/chat-stream")
+async def chatgpt_stream(cm: ChatMessage):
+    chat.append_message(cm.chat_id, "user", cm.message)
+    async def response_generator():
+        response = ""
+        for chunk in chat.request_chatgpt_stream(cm.chat_id):
+            response += chunk
+            yield chunk
+        chat.append_message(cm.chat_id, "assistant", response)
+    return StreamingResponse(response_generator())
 
 
 @app.get("/api/chat-id")
