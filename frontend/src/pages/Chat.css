@@ -8,8 +8,7 @@
 
 .chat-container {
     width: 100%;
-    max-width: 50rem;
-    max-height: calc(100vh - 80px - 50px);
+    max-height: calc(100vh - 80px);
     margin: 0 auto;
     margin-top: 80px;
     display: flex;
@@ -18,15 +17,16 @@
     overflow: hidden;
     border-radius: 1em;
     text-align: end;
+    overflow-y: auto;
   }
   
   .chat-box {
     flex: 1;
     flex-grow: 1;
     padding: 10px;
-    height: 300px;
-    margin: 0 10px;
-    overflow-y: auto;
+    width: 100%;
+    max-width: 48rem;
+    margin: 0 auto;
     padding-bottom: 50px;
   }
   
@@ -34,12 +34,13 @@
     margin: 10px 5px;
     padding: 8px 12px;
     border-radius: 20px;
+    max-width: 40rem;
   }
   
   .chat-message.user {
     background-color: #daf8e3;
     text-wrap: wrap;
-    text-align: end;
+    text-align: start;
     width: fit-content;
     margin-right: 0;
     margin-left: auto;
@@ -62,29 +63,34 @@
     -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
   }
   
+  .chat-box .gap {
+    height: 10px;
+  }
+
   .input-container {
     position: fixed;
     left: 0;
     right: 0;
     width: 100%;
     max-width: 50rem;
-    height: 50px;
     margin: 0 auto;
-    bottom: 0;
+    bottom: 10px;
     display: flex;
     border-top: 1px solid #ddd;
     border-radius: 1em;
     background-color: rgba(248, 249, 250, 0.6);
   }
   
-  input[type="text"] {
+  .chat-input {
     flex: 1;
-    padding: 10px;
+    height: 15px;
     border: none;
     outline: none;
-    background-color: rgba(255, 255, 255, 0.9);
+    font-family: 'Roboto', sans-serif;
     border-radius: 1em;
+    resize: none;
     margin: 10px;
+    padding: 10px 10px;
   }
   
   button {
@@ -93,6 +99,7 @@
     background-color: #8b4caf;
     color: #fff;
     cursor: pointer;
+    height: 35px;
     border-radius: 1em;
     margin: 10px;
   }

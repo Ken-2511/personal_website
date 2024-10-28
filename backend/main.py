@@ -65,5 +65,11 @@ async def get_chat_history(chat_id: str):
 
 
 if __name__ == '__main__':
-    # note that when deploying, use host=127.0.0.1
-    subprocess.run(["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"])
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--debug", action="store_true")
+    args = parser.parse_args()
+    if args.debug:
+        subprocess.run(["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"])
+    else:
+        subprocess.run(["uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8000"])
