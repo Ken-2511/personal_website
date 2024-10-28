@@ -6,10 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from openai import OpenAI
 import os
 import subprocess
+import chat
 
 
 class ChatMessage(BaseModel):
     message: str
+    chat_id: str
 
 
 app = FastAPI()
@@ -21,32 +23,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-api_key = os.getenv("OPENAI_API_KEY")
-print(api_key)
-client = OpenAI(api_key=api_key)
-
-def get_response(message):
-    response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": message}],
-    )
-    return str(response.choices[0].message.content)
+# def get_response(message):
+#     response = client.chat.completions.create(
+#     model="gpt-4o-mini",
+#     messages=[{"role": "user", "content": message}],
+#     )
+#     return str(response.choices[0].message.content)
 
 
 @app.post("/api/echo")
 async def echo(message: str):
     return {"message": message}
 
+
 @app.get("/api/hello")
 async def hello():
     return {"message": "Hello, World!"}
 
+
 @app.post("/api/chat")
-async def chat(cm: ChatMessage):
-    print("Message: ", cm.message)
-    response = get_response(cm.message)
-    print(response)
+async def chatgpt(cm: ChatMessage):
+    response = chat.get_response(cm.chat_id, cm.message)
     return {"response": response}
+
+
+@app.get("/api/chat-id")
+async def get_chat_id():
+    return {"chat_id": chat.get_new_chat_id()}
+
+
+@app.get("/api/chat-history")
+async def get_chat_history(chat_id: str):
+    return {"history": chat.get_history(chat_id)}
 
 
 if __name__ == '__main__':

@@ -44,7 +44,7 @@
     margin-left: auto;
   }
   
-  .chat-message.bot {
+  .chat-message.assistant {
     background-color: #f1f1f1;
     text-wrap: wrap;
     text-align: start;

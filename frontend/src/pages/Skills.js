@@ -22,13 +22,16 @@ function Skills() {
                     <ul>
                         <li>PyTorch</li>
                         <li>React</li>
-                        <li>MatLab</li>
                         <li>Linux</li>
+                        <li>NoSQL/MongoDB</li>
+                        <li>MatLab</li>
                         <li>Git</li>
                         <li>SSH</li>
                         <li>Tkinter</li>
                         <li>Pygame</li>
                         <li>Unity</li>
+                        <li>.NET</li>
+                        <li>Blender</li>
                         <li>Web Scraping</li>
                         <li>3D Modeling & Printing</li>
                         <li>Arduino</li>

@@ -37,6 +37,5 @@
     ]
   },
   "devDependencies": {
-  },
-  "proxy": "http://chengyongkang.me:8000"
+  }
 }
