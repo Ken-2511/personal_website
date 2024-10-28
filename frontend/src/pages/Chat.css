@@ -1,7 +1,7 @@
 /* Chat.css */
 
 .root {
-  height: 100vh;
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
 }
@@ -9,23 +9,25 @@
 .chat-container {
     width: 100%;
     max-width: 50rem;
-    flex-grow: 1;
+    max-height: calc(100vh - 80px - 50px);
     margin: 0 auto;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     overflow: hidden;
-    background-color: rgba(248, 249, 250, 0.6);
-    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
-    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
     border-radius: 1em;
     text-align: end;
   }
   
   .chat-box {
     flex: 1;
+    flex-grow: 1;
     padding: 10px;
     height: 300px;
+    margin: 0 10px;
+    overflow-y: auto;
+    padding-bottom: 50px;
   }
   
   .chat-message {
@@ -42,6 +44,9 @@
     margin-right: 0;
     margin-left: auto;
     white-space: pre-wrap;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
   }
   
   .chat-message.assistant {
@@ -52,6 +57,9 @@
     margin-right: auto;
     margin-left: 0;
     white-space: pre-wrap;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
   }
   
   .input-container {
@@ -60,11 +68,13 @@
     right: 0;
     width: 100%;
     max-width: 50rem;
+    height: 50px;
     margin: 0 auto;
     bottom: 0;
     display: flex;
     border-top: 1px solid #ddd;
     border-radius: 1em;
+    background-color: rgba(248, 249, 250, 0.6);
   }
   
   input[type="text"] {

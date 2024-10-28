@@ -1,11 +1,18 @@
 /* filename: Header.css */
-.header {
+header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    width: -webkit-fill-available;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    /* background-color: #ffffff; */
-    height: 64px;
+    padding: 16px 32px;
+    background-color: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    height: 48px;
 }
 
 .header-right {
