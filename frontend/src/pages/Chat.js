@@ -128,23 +128,23 @@ const Chat = () => {
       <div className="chat-container">
         <div className="chat-box">
           {messages.map((message, index) => (
-            <div key={index} className={`chat-message ${message.role}`}>
+            <p key={index} className={`chat-message ${message.role}`}>
               {message.content}
-            </div>
+            </p>
           ))}
         </div>
         
       </div>
       <div className="input-container">
-        <input
-          type="text"
-          placeholder="Type your message..."
-          value={input}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyPress}
-        />
-        <button onClick={handleSendMessage}>Send</button>
         <button onClick={fetchChatId}>New Chat</button>
+        <input
+            type="text"
+            placeholder="Type your message..."
+            value={input}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+          />
+        <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );

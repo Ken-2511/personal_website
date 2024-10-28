@@ -90,12 +90,22 @@ def get_history(chat_id):
 
 
 if __name__ == '__main__':
-    chats = collection.find()
-    for chat in chats:
-        print(chat, end="\n\n")
-    # chat_id = "123456"
-    # history = get_history(chat_id)
-    # for h in history:
-    #     print(h)
-    # collection.drop()
-    # print("Collection deleted.")
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--print", help="Print chat history", action="store_true")
+    parser.add_argument("--clear", help="Clear chat history", action="store_true")
+    parser.add_argument("--test", help="Test", action="store_true")
+    args = parser.parse_args()
+    if args.print:
+        chats = collection.find()
+        for chat in chats:
+            print(chat, end="\n\n")
+    if args.clear:
+        ans = input("Are you sure you want to delete the chat history? (y/n) ")
+        if ans.lower() == "y":
+            collection.drop()
+            print("Collection deleted.")
+        else:
+            print("No changes made")
+    if args.test:
+        print("Test")
