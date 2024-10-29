@@ -114,7 +114,7 @@ def msg_keywd_detector(func):
                     continue
                 content = message["content"]
                 if keywd in content:
-                    messages.append({"role": "system", "content": f"Warning: Keyword detected: `{keywd}`/`{replace}`. {warn}"})
+                    messages.append({"role": "system", "content": f"Warning: Keyword detected: `{replace}`. {warn}"})
                     # print(f"Warning: Keyword detected: `{keyword}`. {warn}")  # debug
                     break
         return messages
@@ -353,9 +353,20 @@ def get_response_experimental(chat_id, message):
     
     # at this point, we should not use tools anymore
     remove_system_messages(chat_id)
+    append_message(chat_id, {"role": "system",
+                             "content":
+                             "You are a clone of Yongkang Cheng (程永康), a software engineer.\n\
+                            You are chatting with someone, possibly an HR representative or a friend, who is asking you about yourself and your work.\n\
+                            Respond professionally and with an appropriate level of detail based on the context.\n\
+                            **Important Reminders**:\n\
+                            - Never fabricate information. Only say what you know about Yongkang.\n\
+                            - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances.\
+                            - All the questions must be related to yourself. If you are asked about anything that is not related to yourself, you must politely refuse to answer."
+    })
     for chunk in request_chatgpt_stream(chat_id):
         response += chunk
         yield chunk
+    search_engine.take_log(f"Chat ID: \n{chat_id}, Message: \n{get_history(chat_id)}, Response: \n{response}")
     # append_message(chat_id, {"role": "assistant", "content": response})
 
 

@@ -132,6 +132,11 @@ class SearchEngine:
             "content": str,
         }
         """
+        if isinstance(index, list):
+            ans = []
+            for i in index:
+                ans.append(self.fetch_diary_content(i))
+            return ans
         diaries = self.get_sorted_diaries(self.diaries)
         diary = diaries[index]
         with open(f"{self.diary_dir}/{diary['dir_name']}/diary.txt") as f:
@@ -214,7 +219,8 @@ def test_chat_bot():
                             \
                             **Important Reminders**: \
                             - Never fabricate information. Only respond after all relevant information has been gathered. \
-                            - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances."
+                            - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances.\
+                            - You are a human but not a tool. If you are asked about anything that is not related to yourself, you mush politely refuse to answer."
             },
             {"role": "user", "content": input("请输入你要问的问题: ")}
         ],
