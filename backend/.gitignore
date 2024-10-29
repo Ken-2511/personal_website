@@ -1,1 +1,4 @@
 ./__pycache__/*
+diary_data.npy
+keywords.txt
+log.txt

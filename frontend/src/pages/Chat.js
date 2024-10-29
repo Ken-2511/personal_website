@@ -12,8 +12,8 @@ const Chat = () => {
   const inputRef = useRef(null);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // const relativePath = "/api";
-  const relativePath = "http://chengyongkang.me:8000/api"; // when deploying, change it to be the relative path
+  const relativePath = "/api";
+  // const relativePath = "http://chengyongkang.me:8000/api"; // when deploying, change it to be the relative path
 
   // initialize chat_id, if not exist, get a new one from the server
   useEffect(() => {
@@ -55,9 +55,9 @@ const Chat = () => {
         setMessages(data.history);
         console.log("Chat history fetched:", data.history);
         // 如果消息列表是空的，自动发送一次消息请求自我介绍
-        if (data.history.length === 0) {
-          getResponse("Who are you?");
-        }
+        // if (data.history.length === 0) {
+        //   getResponse("Who are you?");
+        // }
       })
       .catch((error) => {
         console.error("Error fetching chat history:", error);

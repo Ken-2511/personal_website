@@ -44,13 +44,14 @@ async def hello():
 
 @app.post("/api/chat-stream")
 async def chatgpt_stream(cm: ChatMessage):
-    chat.append_message(cm.chat_id, "user", cm.message)
+    # chat.append_message(cm.chat_id, {"role": "user", "content": cm.message})
     async def response_generator():
         response = ""
-        for chunk in chat.request_chatgpt_stream(cm.chat_id):
+        # for chunk in chat.request_chatgpt_stream(cm.chat_id):
+        for chunk in chat.get_response_experimental(cm.chat_id, cm.message):
             response += chunk
             yield chunk
-        chat.append_message(cm.chat_id, "assistant", response)
+        chat.append_message(cm.chat_id, {"role": "assistant", "content": response})
     return StreamingResponse(response_generator())
 
 
@@ -61,7 +62,16 @@ async def get_chat_id():
 
 @app.get("/api/chat-history")
 async def get_chat_history(chat_id: str):
-    return {"history": chat.get_history(chat_id)}
+    # 只保留assistant和user的信息
+    temp_history = chat.get_history(chat_id)
+    history = []
+    for message in temp_history:
+        if message["role"] == "assistant" or message["role"] == "user":
+            history.append({
+                "role": message["role"],
+                "content": message["content"]
+            })
+    return {"history": history}
 
 
 if __name__ == '__main__':
