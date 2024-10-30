@@ -260,6 +260,20 @@ class DiaryFormatter:
             json.dump(diaries, f, ensure_ascii=False, indent=4)
         print("All reformatted diaries have been extracted.")
 
+    def filter_people_names(self):
+        # filter the people names in the diaries for privacy protection
+        # we assume that the `data/diaries.json` file has been updated
+        # we also assume that there is a file `data/people_names.json` that contains the people names
+        people_names = json.load(open(f"{self.data_dir}/people_names.json", "r", encoding="utf-8"))
+        diaries = json.load(open(f"{self.data_dir}/diaries.json", "r", encoding="utf-8"))
+        for diary in diaries:
+            for name in people_names:
+                diary["content"] = diary["content"].replace(name, "`somebody`")
+                diary["title"] = diary["title"].replace(name, "`somebody`")
+        # save the diaries in json format
+        with open(f"{self.data_dir}/diaries.json", "w", encoding="utf-8") as f:
+            json.dump(diaries, f, ensure_ascii=False, indent=4)
+        print("All people names have been filtered.")
 
     def update_database_for_diaries(self):
         # we assume that the `data/diaries.json` file has been updated
@@ -282,4 +296,5 @@ if __name__ == "__main__":
     formatter.embed_diaries()
     formatter.get_titles()
     formatter.extract_processed_diaries()
+    formatter.filter_people_names()
     formatter.update_database_for_diaries()

@@ -4,11 +4,11 @@ import json
 import chat
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["test_database"]
-collection = db["chat_history"]
 
-if __name__ == "__main__":
+def print_history():
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["test_database"]
+    collection = db["chat_history"]
     chat_id = input("Enter chat_id: ")
     history = chat.get_history(chat_id)
     for message in history:
@@ -37,3 +37,23 @@ if __name__ == "__main__":
             print("System:\n" + message["content"] + "\n")
         else:
             assert False
+
+
+def print_all_diaries():
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["personal_website"]
+    collection = db["diaries"]
+    diaries = collection.find()
+    for diary in diaries:
+        print("-" * 100)
+        print("Title:")
+        print(diary["title"])
+        print()
+        print("Content:")
+        print(diary["content"])
+        print()
+
+
+if __name__ == "__main__":
+    print_history()
+    # print_all_diaries()
