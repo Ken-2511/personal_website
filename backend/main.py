@@ -62,15 +62,18 @@ async def get_chat_id():
 
 @app.get("/api/chat-history")
 async def get_chat_history(chat_id: str):
-    # 只保留assistant和user的信息
+    # 只保留assistant和user的信息，并且只保留有content的信息
     temp_history = chat.get_history(chat_id)
     history = []
     for message in temp_history:
-        if message["role"] == "assistant" or message["role"] == "user":
-            history.append({
-                "role": message["role"],
-                "content": message["content"]
-            })
+        if message["role"] != "assistant" and message["role"] != "user":
+            continue
+        if not message["content"]:
+            continue
+        history.append({
+            "role": message["role"],
+            "content": message["content"]
+        })
     return {"history": history}
 
 

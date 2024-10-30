@@ -2,3 +2,6 @@
 diary_data.npy
 keywords.txt
 log.txt
+personal_diaries/*
+format_diaries.log
+data/*

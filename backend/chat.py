@@ -42,9 +42,11 @@ message data structure:
 
 def append_message(chat_id, message):
     result = collection.find_one({"chat_id": chat_id})
+    # 如果没有找到对应的聊天记录，就创建一个新的聊天记录
     if not result:
         result = collection.insert_one({"chat_id": chat_id, "history": []})
         document_id = result.inserted_id
+    # 如果找到了对应的聊天记录，就在这个聊天记录中添加新的消息
     else:
         document_id = result["_id"]
     collection.update_one(
@@ -69,17 +71,17 @@ def request_chatgpt_stream(chat_id, model="gpt-4o-mini"):
             yield chunk.choices[0].delta.content
 
 
-def get_response_stream(chat_id, message=None):
-    if message:
-        append_message(chat_id, {"role": "user", "content": message})
-    messages = get_history(chat_id)
-    response = ""
-    for chunk in request_chatgpt_stream(messages):
-        append_message(chat_id, {"role": "assistant", "content": chunk})
-        response += chunk
-        yield chunk
-    append_message(chat_id, {"role": "assistant", "content": response})
-    return response
+# def get_response_stream(chat_id, message=None):
+#     if message:
+#         append_message(chat_id, {"role": "user", "content": message})
+#     messages = get_history(chat_id)
+#     response = ""
+#     for chunk in request_chatgpt_stream(messages):
+#         append_message(chat_id, {"role": "assistant", "content": chunk})
+#         response += chunk
+#         yield chunk
+#     append_message(chat_id, {"role": "assistant", "content": response})
+#     return response
 
 
 def get_new_chat_id():
@@ -214,7 +216,18 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
                 "type": "function",
                 "function": {
                     "name": "find_matching_diary_titles",
-                    "description": "Find matching diary titles by calculating the similarity between the query and the diary content",
+                    "description": "通过一个query搜索日记的标题\n\
+                                    返回相似度最高的n个日记标题\n\
+                                    (将使用你的query的embedding和日记内容的embedding匹配)\n\
+                                    format:\n\
+                                    [\n\
+                                    \t{\n\
+                                    \t\t\"index\": int,\n\
+                                    \t\t\"date\": str,\n\
+                                    \t\t\"title\": str,\n\
+                                    \t\t\"similarity\": float,\n\
+                                    \t},\n\
+                                    ]",
                     "parameters": {
                         "type": "object",
                         "properties": {
@@ -236,13 +249,20 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
                 "type": "function",
                 "function": {
                     "name": "fetch_diary_content",
-                    "description": "Fetch the content of the diary by the index",
+                    "description": "读取日记的内容\n\
+                                    format:\n\
+                                    {\n\
+                                    \t\"index\": int,\n\
+                                    \t\"date\": str,\n\
+                                    \t\"title\": str,\n\
+                                    \t\"content\": str,\n\
+                                    }",
                     "parameters": {
                         "type": "object",
                         "properties": {
                             "index": {
                                 "type": "number",
-                                "description": "The index of the diary you want to fetch. e.g., [0, 1, 2]"
+                                "description": "The index of the diary you want to fetch. e.g., 42"
                             }
                         },
                         "required": ["index"]
@@ -253,7 +273,14 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
                 "type": "function",
                 "function": {
                     "name": "search_by_specific_word",
-                    "description": "Search for diary segments that contain a specific word",
+                    "description": "搜索包含某个词的日记片段(硬匹配)\n\
+                                    format:\n\
+                                    [\n\
+                                    \t\"index\": int,\n\
+                                    \t\"time\": str,\n\
+                                    \t\"title\": str,\n\
+                                    \t\"content\": str,\n\
+                                    ]",
                     "parameters": {
                         "type": "object",
                         "properties": {
@@ -315,31 +342,29 @@ def get_response_experimental(chat_id, message):
     remove_system_messages(chat_id)
     append_message(chat_id, {"role": "system",
                     "content":
-                    "You are a clone of Yongkang Cheng (程永康), a software engineer. \
-                    You are chatting with someone, possibly an HR representative or a friend, who is asking you about yourself and your work. \
-                    Respond professionally and with an appropriate level of detail based on the context. \
-                    \
-                    **Guidelines for Using Tools:** \
-                    \
-                    To answer user questions accurately and thoroughly, you must follow the specific order of tool usage described below. Do not respond directly without going through these steps. \
-                    \
-                    1. **Search Titles First (find_matching_diary_titles)**: When a user asks a question, your first step is to use the `find_matching_diary_titles` tool to search for relevant diary titles using the query. \
-                    - If results are not satisfactory or no titles are found, use the `search_by_specific_word` tool to locate any keywords in diary segments. \
-                    - Continue to adjust the query or keywords as necessary to ensure relevant results. \
-                    \
-                    2. **Read Relevant Diary Content (fetch_diary_content)**: Once you have identified one or more titles that appear relevant, use `fetch_diary_content` to retrieve the detailed content of these entries. \
-                    - Only retrieve content if you need additional context to understand the diary entries and ensure accuracy. \
-                    \
-                    3. **Iterate Search if Necessary**: If the retrieved entries do not provide enough information, repeat the process by searching with a refined query or alternative keywords. Continue until the information is sufficient. \
-                    \
-                    4. **Indicate When Information Is Sufficient (enough_information_gathered)**: Once you have gathered enough information to confidently respond to the user, use the `enough_information_gathered` tool before providing an answer. \
-                    \
-                    **Important Reminders**: \
-                    - Never fabricate information. Only respond after all relevant information has been gathered. \
-                    - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances."
+                    "You are a clone of Yongkang Cheng (程永康), a software engineer.\n\
+                    You are chatting with someone, possibly an HR representative or a friend, who is asking you about yourself and your work.\n\
+                    Respond professionally and with an appropriate level of detail based on the context.\n\
+                    \n\
+                    **Guidelines for Using Tools:**\n\
+                    \n\
+                    To answer user questions accurately and thoroughly, you may use any of the tools described below as needed.\n\
+                    \n\
+                    1. **Search Titles or Keywords (find_matching_diary_titles or search_by_specific_word)**: Use the these tools to search for relevant diary titles or pieces using the query.\n\
+                    - Continue to adjust the query or keywords as necessary to ensure relevant results.\n\
+                    \n\
+                    2. **Read Relevant Diary Content (fetch_diary_content)**: Once you have identified one or more titles that appear relevant, use `fetch_diary_content` to retrieve the detailed content of these entries.\n\
+                    - Only retrieve content if you need additional context to understand the diary entries and ensure accuracy.\n\
+                    \n\
+                    3. **Iterate Search if Necessary**: If the retrieved entries do not provide enough information, repeat the process by searching with a refined query or alternative keywords. Continue until the information is sufficient.\n\
+                    \n\
+                    4. **Indicate When Information Is Sufficient (enough_information_gathered)**: Once you have gathered enough information to confidently respond to the user, use the `enough_information_gathered` tool before providing an answer.\n\
+                    \n\
+                    **Important Reminders**:\n\
+                    - Never fabricate information. Proactively use tools. Only respond after all relevant information has been gathered."
                     })
-    if message:
-        append_message(chat_id, {"role": "user", "content": message})
+
+    append_message(chat_id, {"role": "user", "content": message})
 
     ask_to_use_tools_recur(chat_id)
 
@@ -360,13 +385,13 @@ def get_response_experimental(chat_id, message):
                             Respond professionally and with an appropriate level of detail based on the context.\n\
                             **Important Reminders**:\n\
                             - Never fabricate information. Only say what you know about Yongkang.\n\
-                            - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances.\
+                            - Confidential or personal information such as passwords, API keys, or sensitive details must not be disclosed under any circumstances.\n\
                             - All the questions must be related to yourself. If you are asked about anything that is not related to yourself, you must politely refuse to answer."
     })
     for chunk in request_chatgpt_stream(chat_id):
         response += chunk
         yield chunk
-    search_engine.take_log(f"Chat ID: \n{chat_id}, Message: \n{get_history(chat_id)}, Response: \n{response}")
+    # search_engine.take_log(f"Chat ID: \n{chat_id}, Message: \n{get_history(chat_id)}, Response: \n{response}")
     # append_message(chat_id, {"role": "assistant", "content": response})
 
 
