@@ -44,7 +44,6 @@ async def hello():
 
 @app.post("/api/chat-stream")
 async def chatgpt_stream(cm: ChatMessage):
-    # chat.append_message(cm.chat_id, {"role": "user", "content": cm.message})
     async def response_generator():
         response = ""
         # for chunk in chat.request_chatgpt_stream(cm.chat_id):

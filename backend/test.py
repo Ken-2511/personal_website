@@ -54,6 +54,25 @@ def print_all_diaries():
         print()
 
 
+def print_all_chat_ids():
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["test_database"]
+    collection = db["chat_history"]
+    chat_ids = collection.distinct("chat_id")
+    for chat_id in chat_ids:
+        print(chat_id)
+
+
 if __name__ == "__main__":
-    print_history()
-    # print_all_diaries()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--history", action="store_true")
+    parser.add_argument("--diaries", action="store_true")
+    parser.add_argument("--chat_ids", action="store_true")
+    args = parser.parse_args()
+    if args.history:
+        print_history()
+    if args.diaries:
+        print_all_diaries()
+    if args.chat_ids:
+        print_all_chat_ids()

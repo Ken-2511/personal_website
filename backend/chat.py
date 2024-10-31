@@ -85,12 +85,9 @@ def request_chatgpt_stream(chat_id, model="gpt-4o-mini"):
 
 
 def get_new_chat_id():
-    count = 0
-    while True:
-        chat_id = str(count)
-        if not collection.find_one({"chat_id": chat_id}):
-            return chat_id
-        count += 1
+    result = collection.insert_one({"history": []})
+    print(result.inserted_id)
+    return str(result.inserted_id)
 
 
 def msg_keywd_detector(func):
@@ -123,7 +120,7 @@ def msg_keywd_detector(func):
     return wrapper
 
 
-@msg_keywd_detector
+# @msg_keywd_detector
 def get_history(chat_id):
     result = collection.find_one({"chat_id": chat_id})
     if result:
