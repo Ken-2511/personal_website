@@ -331,7 +331,7 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
 
 
 
-def get_response_experimental(chat_id, message):
+def get_response_stream(chat_id, message):
     # get the response using the search engine
     if not message:
         return
@@ -390,6 +390,18 @@ def get_response_experimental(chat_id, message):
         yield chunk
     # search_engine.take_log(f"Chat ID: \n{chat_id}, Message: \n{get_history(chat_id)}, Response: \n{response}")
     # append_message(chat_id, {"role": "assistant", "content": response})
+
+
+def get_response_stream_3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39(chat_id, message):
+    # get the response using the search engine
+    if not message:
+        return
+    append_message(chat_id, {"role": "user", "content": message})
+    # get the response from the chatgpt
+    response = ""
+    for chunk in request_chatgpt_stream(chat_id, model="gpt-4o"):
+        response += chunk
+        yield chunk
 
 
 if __name__ == '__main__':
