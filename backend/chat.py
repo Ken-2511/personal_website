@@ -397,11 +397,19 @@ def get_response_stream_3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f719
     if not message:
         return
     append_message(chat_id, {"role": "user", "content": message})
+    model="gpt-4o"
+    messages = get_history(chat_id)
+    messages = messages[-10:]
     # get the response from the chatgpt
     response = ""
-    for chunk in request_chatgpt_stream(chat_id, model="gpt-4o"):
-        response += chunk
-        yield chunk
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        stream=True
+    )
+    for chunk in response:
+        if chunk.choices[0].delta.content is not None:
+            yield chunk.choices[0].delta.content
 
 
 if __name__ == '__main__':
