@@ -10,6 +10,7 @@ import FunFacts from './pages/FunFacts';
 import Chat from './pages/Chat';
 import NotFound from './pages/NotFound';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PureChat from './pages/PureChat';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/fun-facts" element={<FunFacts />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39" element={<PureChat />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
