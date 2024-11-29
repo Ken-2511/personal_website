@@ -96,4 +96,4 @@ if __name__ == '__main__':
     if args.debug:
         subprocess.run(["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"])
     else:
-        subprocess.run(["uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8000"])
+        subprocess.run(["python3", "-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8000"])

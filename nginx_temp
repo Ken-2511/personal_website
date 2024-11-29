@@ -36,43 +36,43 @@
 #	}
 #}
 
-server {
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-    server_name chengyongkang.me; # managed by Certbot
+# server {
+# 	root /var/www/html;
+# 	index index.html index.htm index.nginx-debian.html;
+#     server_name chengyongkang.me; # managed by Certbot
 
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to redirect to the react app
-		try_files $uri $uri/ /index.html;
-	}
-	location /api/ {
-		proxy_pass http://localhost:8000;
-		proxy_set_header Host $host;
-		proxy_buffering off;
-		proxy_cache off;
-		chunked_transfer_encoding on;
-	}
+# 	location / {
+# 		# First attempt to serve request as file, then
+# 		# as directory, then fall back to redirect to the react app
+# 		try_files $uri $uri/ /index.html;
+# 	}
+# 	location /api/ {
+# 		proxy_pass http://localhost:8000;
+# 		proxy_set_header Host $host;
+# 		proxy_buffering off;
+# 		proxy_cache off;
+# 		chunked_transfer_encoding on;
+# 	}
 
-    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/chengyongkang.me/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/chengyongkang.me/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+#     listen [::]:443 ssl ipv6only=on; # managed by Certbot
+#     listen 443 ssl; # managed by Certbot
+#     ssl_certificate /etc/letsencrypt/live/chengyongkang.me/fullchain.pem; # managed by Certbot
+#     ssl_certificate_key /etc/letsencrypt/live/chengyongkang.me/privkey.pem; # managed by Certbot
+#     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-}
+# }
 
-server {
-    if ($host = chengyongkang.me) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
+# server {
+#     if ($host = chengyongkang.me) {
+#         return 301 https://$host$request_uri;
+#     } # managed by Certbot
 
-	listen 80 ;
-	listen [::]:80 ;
-    server_name chengyongkang.me;
-    return 404; # managed by Certbot
-}
+# 	listen 80 ;
+# 	listen [::]:80 ;
+#     server_name chengyongkang.me;
+#     return 404; # managed by Certbot
+# }
 
 # # Redirect requests from port 3030 to 3000
 # # for the React app debugging
@@ -94,3 +94,40 @@ server {
 # 		proxy_set_header Host $host;
 # 	}
 # }
+
+server {
+    server_name chengyongkang.me;
+
+    root /var/www/ken;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+	location /api/ {
+		proxy_pass http://localhost:8000;
+		proxy_set_header Host $host;
+		proxy_buffering off;
+		proxy_cache off;
+		chunked_transfer_encoding on;
+	}
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/chengyongkang.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/chengyongkang.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = chengyongkang.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name chengyongkang.me;
+    return 404; # managed by Certbot
+
+
+}

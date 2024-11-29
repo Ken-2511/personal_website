@@ -16,7 +16,7 @@ else
 fi
 
 # 目标路径
-TARGET_DIR="/var/www/html/"
+TARGET_DIR="/var/www/ken/"
 
 # 确保目标目录存在
 if [ ! -d "$TARGET_DIR" ]; then
