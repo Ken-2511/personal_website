@@ -30,9 +30,9 @@ class DiaryFormatter:
     # ]
 
     def __init__(self):
-        self.static_diary_dir = "/home/iwmain/Documents/Personal-Diaries"  # we should not modify anything in this directory
-        self.diary_dir = "/home/iwmain/Documents/personal_website/backend/personal_diaries"  # we can modify this
-        self.data_dir = "/home/iwmain/Documents/personal_website/backend/data"  # we can modify this
+        self.static_diary_dir = "/home/ken/Documents/Personal-Diaries"  # we should not modify anything in this directory
+        self.diary_dir = "/home/ken/Documents/personal_website/backend/personal_diaries"  # we can modify this
+        self.data_dir = "/home/ken/Documents/personal_website/backend/data"  # we can modify this
         self.collection = db["diaries"]
         
         # load all diaries from the static directory
