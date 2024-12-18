@@ -1,0 +1,72 @@
+/* FunFacts.css */
+
+/* 设置整个 section 的样式 */
+.fun-facts-section {
+    padding: 2em;
+    border-radius: 8px; /* 和 skills-section 保持一致 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 2em auto;
+    margin-top: 100px;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
+}
+
+/* 设置标题样式，保持和 skills-section 的一致性 */
+.fun-facts-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1em;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5em;
+}
+
+/* 设置 p 标签的样式 */
+.fun-facts-section p {
+    font-size: 1.2rem;
+    color: #333; /* 深色文字 */
+    margin: 0;
+    line-height: 1.5; /* 增加行高，使文本更易读 */
+}
+
+/* Fun Fact Card 样式 */
+.fun-fact-card {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: #ffffff; /* 与 skills-section 的 li 保持一致 */
+    padding: 1em;
+    margin: 1em 0;
+    gap: 0.3em;
+    border-radius: 4px; /* 较小的圆角保持一致 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 与 skills-section li 的阴影保持一致 */
+}
+
+.fun-fact-card h2 {
+    font-size: 1.5rem;
+    color: #555; /* 与 skills-section 的 h3 标题颜色保持一致 */
+    margin: 0;
+}
+
+.fun-fact-card p {
+    font-size: 1rem;
+    color: #666; /* 与 skills-section li 的文字颜色保持一致 */
+    line-height: 1.5;
+}
+
+/* 图片容器和图片样式 */
+.fun-fact-card .img-container {
+    margin-left: auto;
+}
+
+.fun-fact-card img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* 调整为较小的圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
