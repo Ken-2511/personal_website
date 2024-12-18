@@ -39,6 +39,6 @@ def crop_and_resize_images(scr_path, dest_path, size=1024):
             print(f"已处理并保存: {save_path}")
 
 if __name__ == "__main__":
-    scr_path = "./priginal_iamges"  # 替换为源图片文件夹路径
+    scr_path = "./original_images"  # 替换为源图片文件夹路径
     dest_path = "../public/assets"  # 替换为目标文件夹路径
     crop_and_resize_images(scr_path, dest_path)
