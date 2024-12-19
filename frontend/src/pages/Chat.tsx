@@ -19,7 +19,7 @@ const Chat: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const relativePath = "/api";
+  const apiPath = "https://chengyongkang.me/api";
 
   // 初始化 chat_id
   useEffect(() => {
@@ -50,7 +50,7 @@ const Chat: React.FC = () => {
   useEffect(() => {
     if (!chat_id) return;
 
-    fetch(`${relativePath}/chat-history?chat_id=${chat_id}`)
+    fetch(`${apiPath}/chat-history?chat_id=${chat_id}`)
       .then((response) => response.json())
       .then((data) => {
         setMessages(data.history as Message[]);
@@ -68,7 +68,7 @@ const Chat: React.FC = () => {
   // 获取 Chat ID
   const fetchChatId = async () => {
     try {
-      const response = await fetch(`${relativePath}/chat-id`, {
+      const response = await fetch(`${apiPath}/chat-id`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -104,7 +104,7 @@ const Chat: React.FC = () => {
 
     setIsDisabled(true);
 
-    const response = await fetch(`${relativePath}/chat-stream`, {
+    const response = await fetch(`${apiPath}/chat-stream`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id, message: input }),
