@@ -54,16 +54,16 @@ async def chatgpt_stream(cm: ChatMessage):
     return StreamingResponse(response_generator())
 
 
-@app.post("/api/3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39")
-async def chatgpt_stream(cm: ChatMessage):
-    async def response_generator():
-        response = ""
-        # for chunk in chat.request_chatgpt_stream(cm.chat_id):
-        for chunk in chat.get_response_stream_3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39(cm.chat_id, cm.message):
-            response += chunk
-            yield chunk
-        chat.append_message(cm.chat_id, {"role": "assistant", "content": response})
-    return StreamingResponse(response_generator())
+# @app.post("/api/3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39")
+# async def chatgpt_stream(cm: ChatMessage):
+#     async def response_generator():
+#         response = ""
+#         # for chunk in chat.request_chatgpt_stream(cm.chat_id):
+#         for chunk in chat.get_response_stream_3ace6bf23d0dceb63ef7ad28469f336465ef6ce7f818a355cbb1f71907becc39(cm.chat_id, cm.message):
+#             response += chunk
+#             yield chunk
+#         chat.append_message(cm.chat_id, {"role": "assistant", "content": response})
+#     return StreamingResponse(response_generator())
 
 
 @app.get("/api/chat-id")
