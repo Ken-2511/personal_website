@@ -4,6 +4,7 @@ import './Home.css';
 import MyPhoto from '../components/MyPhoto';
 import Skills from './Skills';
 import Projects from './Projects';
+import FunFacts from './FunFacts';
 
 function Home() {
     return (
@@ -22,6 +23,7 @@ function Home() {
         </div>
         <Skills />
         <Projects />
+        <FunFacts />
         </>
     );
 }

@@ -38,12 +38,12 @@ function FunFacts() {
         {
             title: "I Have a Raspberry Pi",
             description: "I run this website on my Raspberry Pi! Yes, it's a tiny computer doing a big job.",
-            // image: "/assets/raspberry-pi.jpg",
+            image: "/assets/raspberry-pi.jpg",
         },
         {
             title: "My Hobbies",
             description: "Playing table tennis, coding little apps, binge-watching Bilibili, and indulging in sweets—life is all about balance, right?",
-            // image: "/assets/hobbies.jpg",
+            image: "/assets/ice-cream.jpg",
         },
         {
             title: "Casual Gamer",

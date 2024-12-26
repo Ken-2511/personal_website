@@ -37,7 +37,7 @@ const Skills: React.FC = () => {
     const firstColumn: SkillGroupProps[] = [
         {
             category: "Programming Languages",
-            skills: ["Python", "JavaScript", "C", "C++", "Java", "C#", "Verilog"],
+            skills: ["Python (Proficient)", "JavaScript", "C", "C++", "Java", "C#", "Verilog"],
         },
         {
             category: "Web Development",
