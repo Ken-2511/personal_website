@@ -5,4 +5,4 @@ log.txt
 personal_diaries/*
 format_diaries.log
 data/*
-diary_database/*
+diary_database/
