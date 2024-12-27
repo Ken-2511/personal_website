@@ -7,7 +7,6 @@ import pickle
 import random
 import numpy as np
 from openai import OpenAI
-from datetime import datetime
 from diary_database.diary_database import DiaryDatabase, DiaryEntry
 
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -21,8 +20,10 @@ class SearchEngine:
 
         class CustomUnpickler(pickle.Unpickler):
             def find_class(self, module, name):
-                if module == "diary_database" and name in ["DiaryDatabase", "DiaryEntry"]:
+                if module == "diary_database" and name == "DiaryDatabase":
                     return DiaryDatabase
+                elif module == "diary_database" and name == "DiaryEntry":
+                    return DiaryEntry
                 return super().find_class(module, name)
 
         if not os.path.exists(pkl_path):
@@ -73,8 +74,8 @@ class SearchEngine:
 
         # 3. 按相似度从大到小获取索引
         sorted_indices = np.argsort(-similarities)  # np.argsort默认升序, 加负号变成降序
-        top_n_indices = sorted_indices[:n]
-        top_n_similarities = similarities[top_n_indices]
+        top_n_indices = sorted_indices[:n].tolist()
+        top_n_similarities = similarities[top_n_indices].tolist()
 
         # 4. 将结果组装成 list[dict]；这里使用列表推导式替代常规 for 循环
         results = [
@@ -99,6 +100,7 @@ class SearchEngine:
             "content": str,
         }
         """
+        # assert isinstance(index, int), "index 必须是整数。"
         if index < 0 or index >= len(self.db.entries):
             raise IndexError(f"索引 {index} 超出范围。")
 
@@ -242,6 +244,9 @@ def test_chat_bot():
 
 if __name__ == "__main__":
     se = SearchEngine("diary_database/diary_processed.pkl")
+
+    # ===============  测试数据类型  ===============
+    # print(se.db)
     
     # ===============  测试向量搜索  ===============
     query = input("请输入搜索的内容(query): ")
@@ -255,6 +260,7 @@ if __name__ == "__main__":
         idx_for_detail = matched_titles[0]["index"]
         detail = se.fetch_diary_content(idx_for_detail)
         print("\n[查看最高相似度日记的内容]：")
+        print(detail)
         print(json.dumps(detail, ensure_ascii=False, indent=4))
 
     # =============== 测试关键词检索  ===============
