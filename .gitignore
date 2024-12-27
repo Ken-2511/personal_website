@@ -1,3 +1,5 @@
 backend/__pycache__/main.cpython-311.pyc
 frontend/package-lock.json
 venv/*
+.env
+.idea/
