@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # filename: chat.py
 
@@ -7,6 +7,7 @@
 
 import os
 import json
+import asyncio
 from openai import OpenAI
 from pymongo import MongoClient
 from search_engine import SearchEngine
@@ -71,56 +72,12 @@ def request_chatgpt_stream(chat_id, model="gpt-4o-mini"):
             yield chunk.choices[0].delta.content
 
 
-# def get_response_stream(chat_id, message=None):
-#     if message:
-#         append_message(chat_id, {"role": "user", "content": message})
-#     messages = get_history(chat_id)
-#     response = ""
-#     for chunk in request_chatgpt_stream(messages):
-#         append_message(chat_id, {"role": "assistant", "content": chunk})
-#         response += chunk
-#         yield chunk
-#     append_message(chat_id, {"role": "assistant", "content": response})
-#     return response
-
-
 def get_new_chat_id():
     result = collection.insert_one({"history": []})
     print(result.inserted_id)
     return str(result.inserted_id)
 
 
-def msg_keywd_detector(func):
-    with open("keywords.txt", "r", encoding="utf-8") as f:
-        keywords_warnings = f.read().split("\n")
-        keywords = []
-        warnings = []
-        replaces = []
-        for keyword_warning in keywords_warnings:
-            if len(keyword_warning.split(": ")) != 3:
-                print(f"Invalid keyword_warning: {keyword_warning}")
-                continue
-            keyword, replace, warning = keyword_warning.split(": ")
-            keywords.append(keyword)
-            warnings.append(warning)
-            replaces.append(replace)
-            # print(f"Keyword: {keyword}, Warning: {warning}")  # debug
-    def wrapper(*args, **kwargs):
-        messages = func(*args, **kwargs)
-        for keywd, replace, warn in zip(keywords, replaces, warnings):
-            for message in messages:
-                if message["content"] is None:
-                    continue
-                content = message["content"]
-                if keywd in content:
-                    messages.append({"role": "system", "content": f"Warning: Keyword detected: `{replace}`. {warn}"})
-                    # print(f"Warning: Keyword detected: `{keyword}`. {warn}")  # debug
-                    break
-        return messages
-    return wrapper
-
-
-# @msg_keywd_detector
 def get_history(chat_id):
     result = collection.find_one({"chat_id": chat_id})
     if result:
@@ -168,7 +125,7 @@ def handle_tool_call(chat_id, tool_call):
         })
 
 
-def _format_tool_calls_messaage(message):
+def _format_tool_calls_message(message):
     # example:
     # ChatCompletionMessage(content=None,
     #                       refusal=None,
@@ -312,7 +269,7 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
         if tool_call.function.name == "enough_information_gathered":
             return
     # append the response to the chat history
-    append_message(chat_id, _format_tool_calls_messaage(response.choices[0].message))
+    append_message(chat_id, _format_tool_calls_message(response.choices[0].message))
     # handle the tool calls
     for tool_call in tool_calls:
         handle_tool_call(chat_id, tool_call)
@@ -328,8 +285,6 @@ def ask_to_use_tools_recur(chat_id, recur_depth=0):
     #     print(json.loads(str(message["content"])))
     ask_to_use_tools_recur(chat_id, recur_depth + 1)
     
-
-
 
 def get_response_stream(chat_id, message):
     # get the response using the search engine
@@ -417,12 +372,28 @@ def get_response_stream(chat_id, message):
     # append_message(chat_id, {"role": "assistant", "content": response})
 
 
+async def async_task(name, wait_time):
+    print(f"{name} started")
+    await asyncio.sleep(wait_time)  # 模拟异步操作
+    print(f"{name} finished")
+
+
+async def async_test():
+    task1 = asyncio.create_task(async_task("Task-1", 2))
+    task2 = asyncio.create_task(async_task("Task-2", 1))
+    
+    await task1
+    await task2
+
+
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--print", help="Print chat history", action="store_true")
     parser.add_argument("--clear", help="Clear chat history", action="store_true")
     parser.add_argument("--test", help="Test", action="store_true")
+    parser.add_argument("--_async", help="Test async", action="store_true")
     args = parser.parse_args()
     if args.print:
         chats = collection.find()
@@ -437,3 +408,7 @@ if __name__ == '__main__':
             print("No changes made")
     if args.test:
         print("Test")
+    if args._async:
+        print("Start")
+        asyncio.run(async_test())
+        print("Done")
