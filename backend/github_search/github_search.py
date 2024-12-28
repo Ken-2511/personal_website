@@ -11,6 +11,8 @@ class GithubSearch:
         self.GITHUB_API_URL = "https://api.github.com"
         self.GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
         self.HEADERS = {"Authorization": f"Bearer {self.GITHUB_TOKEN}"}
+        self.usr_name = "Ken-2511"
+        self.json_decorator_enabled = True
 
     def send_github_request(self, method, endpoint, params=None):
         url = f"{self.GITHUB_API_URL}{endpoint}"
@@ -31,32 +33,103 @@ class GithubSearch:
                 "status_code": response.status_code,
                 "error": response.text
             }
-
-    def request_github_search(self, query):
-        return self.send_github_request("GET", "/search/code", params={"q": query})
-
-    def search_specific_word(self, word):
-        response = self.send_github_request("GET", "/search/code", params={"q": f"{word} user:Ken-2511"})
-        if response["status"] == "success":
-            return response["data"]
-        else:
-            return response
-
-    def get_repo(self, repo_name):
-        response = self.send_github_request("GET", f"/repos/Ken-2511/{repo_name}")
-        if response["status"] == "success":
-            return response["data"]
-        else:
-            return response
-
-    def get_repo_stats(self, repo_name):
-        # 获取指定仓库的信息
-        response = self.send_github_request("GET", f"/repos/Ken-2511/{repo_name}")
+    
+    def json_decorator(self, func):
+        def wrapper(*args, **kwargs):
+            response = func(*args, **kwargs)
+            if self.
+        return wrapper
+    
+    @self.json_decorator
+    def list_repo_files(self, repo_name, per_page=30, page=1):
+        # 获取指定仓库的文件
+        response = self.send_github_request("GET", f"/repos/{self.usr_name}/{repo_name}/contents", params={"per_page": per_page, "page": page})
         if response["status"] == "success":
             response = response["data"]
+            files = []
+            for file in response:
+                files.append({
+                    "name": file["name"],
+                    "path": file["path"],
+                    "download_url": file["download_url"],
+                    "type": file["type"],
+                    "size": file["size"],
+                })
+            return files
+        else:
+            return response
+    
+    @json_decorator
+    def get_repo_stats(self, repo_name):
+        # 获取指定仓库的信息
+        response = self.send_github_request("GET", f"/repos/{self.usr_name}/{repo_name}")
+        if response["status"] == "success":
+            response = response["data"]
+            return {
+                "name": response["name"],
+                "full_name": response["full_name"],
+                "description": response["description"],
+                "html_url": response["html_url"],
+                "created_at": response["created_at"],
+                "updated_at": response["updated_at"],
+                "language": response["language"],
+                "size": response["size"],
+                "default_branch": response["default_branch"],
+            }
+        else:
+            return response
+    
+    @json_decorator
+    def get_file_content(self, repo_name, file_path):
+        # 获取指定仓库的文件内容
+        response = self.send_github_request("GET", f"/repos/{self.usr_name}/{repo_name}/contents/{file_path}")
+        if response["status"] == "success":
+            response = response["data"]
+            if isinstance(response, dict) and "content" in response:  # 是文件
+                try:
+                    content = base64.b64decode(response["content"]).decode("utf-8")
+                except UnicodeDecodeError:
+                    content = response["content"]
+                return {
+                    "name": response["name"],
+                    "path": response["path"],
+                    "content": content[:500],
+                    "html_url": response["html_url"],
+                    "type": response["type"],
+                    "size": response["size"],
+                }
+            else:  # 不是文件
+                return {
+                    "status": "error",
+                    "error": "Not a file"
+                }
+        else:
+            return response
+    
+    @json_decorator
+    def list_repositories():
+    # 获取用户的所有仓库
+    response = send_github_request("GET", "/user/repos")
+    if response["status"] == "success":
+        response = response["data"]
+        repos = []
+        for repo in response:
+            repos.append({
+                "name": repo["name"],
+                "full_name": repo["full_name"],
+                "description": repo["description"],
+                "html_url": repo["html_url"],
+                "created_at": repo["created_at"],
+                "updated_at": repo["updated_at"],
+                "language": repo["language"],
+                "size": repo["size"],
+                "default_branch": repo["default_branch"],
+            })
+        return repos
+    else:
         return response
 
 
 if __name__ == '__main__':
     gs = GithubSearch()
-    print(gs.get_repo_stats("github-search"))
+    response = 
