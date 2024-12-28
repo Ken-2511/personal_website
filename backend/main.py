@@ -25,11 +25,13 @@ app.add_middleware(
 )
 
 
+# For testing
 @app.post("/api/echo")
 async def echo(message: str):
     return {"message": message}
 
 
+# For testing
 @app.get("/api/hello")
 async def hello():
     return {"message": "Hello, World!"}
@@ -39,7 +41,6 @@ async def hello():
 async def chatgpt_stream(cm: ChatMessage):
     async def response_generator():
         response = ""
-        # for chunk in chat.request_chatgpt_stream(cm.chat_id):
         for chunk in chat.get_response_stream(cm.chat_id, cm.message):
             response += chunk
             yield chunk

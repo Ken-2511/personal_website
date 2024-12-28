@@ -77,6 +77,7 @@ def print_all_history(chat_only=True):
         print_history(chat_id, chat_only)
         input("Press enter to continue")
 
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
