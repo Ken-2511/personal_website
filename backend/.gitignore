@@ -6,3 +6,4 @@ personal_diaries/*
 format_diaries.log
 data/*
 diary_database/
+github_search/log.json
