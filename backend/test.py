@@ -73,6 +73,7 @@ def print_all_history(chat_only=True):
     chat_ids = collection.distinct("chat_id")
     for chat_id in chat_ids:
         subprocess.run(["clear"])
+        print(f"Chat ID: {chat_id}")
         print_history(chat_id, chat_only)
         input("Press enter to continue")
 
