@@ -66,14 +66,14 @@ def print_all_chat_ids():
         print(chat_id)
 
 
-def print_all_history():
+def print_all_history(chat_only=True):
     # get all chat ids
     db = client["test_database"]
     collection = db["chat_history"]
     chat_ids = collection.distinct("chat_id")
     for chat_id in chat_ids:
         subprocess.run(["clear"])
-        print_history(chat_id)
+        print_history(chat_id, chat_only)
         input("Press enter to continue")
 
 if __name__ == "__main__":
@@ -92,4 +92,4 @@ if __name__ == "__main__":
     if args.chat_ids:
         print_all_chat_ids()
     if args.all:
-        print_all_history()
+        print_all_history(chat_only=False)

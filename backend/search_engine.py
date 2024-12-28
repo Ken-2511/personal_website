@@ -153,25 +153,19 @@ def test_chat_bot():
     """
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     response = client.chat.completions.create(
-        model="gpt-4o",  # 替换为你的实际模型名称
+        model="gpt-4o",  # Replace with your actual model name
         messages=[
             {
                 "role": "system",
-                "content": (
-                    "You are a clone of Yongkang Cheng (程永康), a software engineer.\n"
-                    "You are chatting with someone, possibly an HR representative or a friend, who is asking you about yourself and your work.\n"
-                    "Respond professionally and with an appropriate level of detail based on the context.\n\n"
-                    "**Guidelines for Using Tools:**\n"
-                    "- ... (略)"
-                )
+                "content": "You're the diary content retrieval assistant for Yongkang Cheng. Your task is to efficiently retrieve relevant content from the structured diary database based on the user's query, prioritizing vector search for matching diary titles and content. Responsibilities and goals: 1. **Vector search first**: Use the `vector_search` tool to perform a vector search and return the most relevant diary titles (default is 10). 2. **Supplemental search**: If vector search results are insufficient, use `search_by_specific_word` to search for more diary content based on keywords in the query. 3. **Detailed content extraction**: Use `read_full_diary` to extract detailed diary content when necessary. 4. **Task completion**: Once enough information is gathered, use `enough_information_gathered` to notify task completion. Tool usage: 1. **vector_search**: Use this tool for vector search to return relevant diary titles. 2. **read_full_diary**: Extract diary content by index to supplement relevant information. 3. **search_by_specific_word**: Perform a keyword search to supplement diary snippets. 4. **enough_information_gathered**: Notify task completion when enough information is gathered.",
             },
-            {"role": "user", "content": "示例问题"}
+            {"role": "user", "content": input("请输入你的问题: ")},
         ],
         tools=[
             {
                 "type": "function",
                 "function": {
-                    "name": "find_matching_diary_titles",
+                    "name": "vector_search",
                     "description": "Find matching diary titles by calculating the similarity between the query and the diary content",
                     "parameters": {
                         "type": "object",
@@ -193,7 +187,7 @@ def test_chat_bot():
             {
                 "type": "function",
                 "function": {
-                    "name": "fetch_diary_content",
+                    "name": "read_full_diary",
                     "description": "Fetch the content of the diary by the index",
                     "parameters": {
                         "type": "object",
@@ -239,7 +233,8 @@ def test_chat_bot():
         ],
         tool_choice="required"
     )
-    print(response)
+
+    print(response.model_dump_json(indent=4))
 
 
 if __name__ == "__main__":
@@ -249,23 +244,26 @@ if __name__ == "__main__":
     # print(se.db)
     
     # ===============  测试向量搜索  ===============
-    query = input("请输入搜索的内容(query): ")
-    matched_titles = se.find_matching_diary_titles(query, n=5)
-    print("\n[向量搜索] 相似度最高的5条日记：")
-    for item in matched_titles:
-        print(item)
+    # query = input("请输入搜索的内容(query): ")
+    # matched_titles = se.find_matching_diary_titles(query, n=5)
+    # print("\n[向量搜索] 相似度最高的5条日记：")
+    # for item in matched_titles:
+    #     print(item)
 
-    if matched_titles:
-        # 测试 fetch_diary_content
-        idx_for_detail = matched_titles[0]["index"]
-        detail = se.fetch_diary_content(idx_for_detail)
-        print("\n[查看最高相似度日记的内容]：")
-        print(detail)
-        print(json.dumps(detail, ensure_ascii=False, indent=4))
+    # if matched_titles:
+    #     # 测试 fetch_diary_content
+    #     idx_for_detail = matched_titles[0]["index"]
+    #     detail = se.fetch_diary_content(idx_for_detail)
+    #     print("\n[查看最高相似度日记的内容]：")
+    #     print(detail)
+    #     print(json.dumps(detail, ensure_ascii=False, indent=4))
 
     # =============== 测试关键词检索  ===============
-    word_to_search = input("\n请输入要搜索的关键词: ")
-    segs = se.search_by_specific_word(word_to_search)
-    print("\n[关键词检索] 返回片段：")
-    for i, seg in enumerate(segs):
-        print(i, seg)
+    # word_to_search = input("\n请输入要搜索的关键词: ")
+    # segs = se.search_by_specific_word(word_to_search)
+    # print("\n[关键词检索] 返回片段：")
+    # for i, seg in enumerate(segs):
+    #     print(i, seg)
+
+    # =============== 测试聊天机器人  ===============
+    test_chat_bot()
