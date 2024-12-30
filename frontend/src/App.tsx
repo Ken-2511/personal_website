@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Skills from './pages/Skills'
 import Projects from './pages/Projects'
 import FunFacts from './pages/FunFacts'
+import Resume from './pages/Resume'
 import Chat from './pages/Chat'
 import NotFound from './pages/NotFound'
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/fun-facts" element={<FunFacts />} />
+        <Route path="/resume" element={<Resume />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

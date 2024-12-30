@@ -3,3 +3,4 @@ frontend/package-lock.json
 venv/*
 .env
 .idea/
+node_modules/

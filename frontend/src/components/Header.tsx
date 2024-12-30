@@ -46,9 +46,9 @@ function Header() {
                     <Link to="/fun-facts" onClick={() => setIsMenuOpen(false)}>
                         <span role="img" aria-label="fun">😝</span> Fun Facts
                     </Link>
-                    <a href="/resume.pdf" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
-                        <span role="img" aria-label="resume">📄</span> Resume
-                    </a>
+                    <Link to="/resume" onClick={() => setIsMenuOpen(false)}>
+                        <span role="img" aria-label="document">📄</span> Resume
+                    </Link>
                     <Link to="/chat" onClick={() => setIsMenuOpen(false)}>
                         <span role="img" aria-label="chat">💬</span> Chat
                     </Link>
