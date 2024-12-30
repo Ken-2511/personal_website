@@ -17,6 +17,23 @@ const Resume: React.FC = () => {
 
     const pdfFile = "/resume.pdf";
 
+    // 动态计算宽度
+    const calculateWidth = (): number => {
+        const maxWidth = 800;
+        const availableWidth = document.documentElement.clientWidth - 32; // 2em 转换为像素（假设 1em = 16px）
+        console.log("availableWidth: ", availableWidth);
+        return Math.min(maxWidth, availableWidth);
+    };
+
+    const [pageWidth, setPageWidth] = useState<number>(calculateWidth());
+
+    // 添加 resize 监听器
+    React.useEffect(() => {
+        const handleResize = () => setPageWidth(calculateWidth());
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const [numPages, setNumPages] = useState<number>();
 
     function onDocumentLoadSuccess({ numPages: nextNumPages }: PDFDocumentProxy): void {
@@ -36,7 +53,7 @@ const Resume: React.FC = () => {
                                 className={"resume-page"}
                                 key={`page_${index + 1}`}
                                 pageNumber={index + 1}
-                                width={800}
+                                width={pageWidth}
                             />
                         </div>
                     ))}
