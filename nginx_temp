@@ -21,6 +21,10 @@ server {
         add_header Access-Control-Allow-Headers 'Content-Type, Authorization';
     }
     
+    include mime.types;
+    types {
+        application/javascript mjs;
+    }
 
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/chengyongkang.me/fullchain.pem; # managed by Certbot

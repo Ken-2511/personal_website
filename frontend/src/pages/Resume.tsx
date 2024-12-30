@@ -9,9 +9,9 @@ import "react-pdf/dist/esm/Page/TextLayer.css";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    "pdfjs-dist/build/pdf.worker.min.mjs",
+    'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url,
-).toString();
+  ).toString();  
 
 const Resume: React.FC = () => {
 
@@ -27,7 +27,7 @@ const Resume: React.FC = () => {
         <div className={"resume-page"}>
             <div className="resume-container">
                 <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-                    <a href={pdfFile} className="download-pdf">
+                    <a href={pdfFile} className="download-pdf" target="_blank" rel="noopener noreferrer">
                         <img className="download-pdf-img" src="/assets/icon/pop-out.png" alt="pop-out" />
                     </a>
                     {Array.from(new Array(numPages), (_el, index) => (
