@@ -37,39 +37,40 @@ function FunFacts() {
     const funFactsData = [
         {
             title: "I Have a Raspberry Pi",
-            description: "I run this website on my Raspberry Pi! Yes, it's a tiny computer doing a big job.",
+            description: "Powered by a Raspberry Pi 5 with 4GB RAM, this website is served from a tiny computer inside a deliciously red-and-white case that looks almost good enough to eat. It’s running React+Vite on the front end, FastAPI+OpenAI API on the back end, and even hosts a piece of my personal diary!",
             image: "/assets/raspberry-pi.jpg",
         },
         {
             title: "My Hobbies",
-            description: "Playing table tennis, coding little apps, binge-watching Bilibili, and indulging in sweets—life is all about balance, right?",
+            description: "A casual table tennis player, a tech enthusiast on Bilibili (big fan of 稚晖君), and a sweets addict—my life is all about chasing tech trends while indulging my sweet tooth. Balance, right?",
             image: "/assets/ice-cream.jpg",
         },
         {
             title: "Casual Gamer",
-            description: "Sometimes I dive into the worlds of Genshin Impact and Party Animals, just for fun.",
-            // image: "/assets/gaming.jpg",
+            description: "When I’m not busy coding, I’m usually saving Teyvat as Hu Tao in Genshin Impact or laughing my heart out in Party Animals. Who wouldn’t love a lively, mischievous girl like Hu Tao?",
+            image: "/assets/genshin-impact.jpg",
         },
         {
             title: "Always Open to New Things",
-            description: "Whether it's trying out a new university or making new friends, I'm always up for an adventure.",
+            description: "I dream of working in Silicon Valley one day, drawn to its culture, tech innovation, and vibrant urban life. High salaries? Oh no, not at all (*wink*). My ultimate goal: creating a Super AI that changes the world.",
             // image: "/assets/exploration.jpg",
         },
         {
-            title: "Silicon Valley Dreamer",
-            description: "One day, you'll find me working in Silicon Valley. Until then, I'm putting in the work!",
-            // image: "/assets/silicon-valley.jpg",
+            title: "What is IWMAIN",
+            description: "My email, iwmain@outlook.com, stands for \"I Will Make an AI Nova.\" Nova is a nod to a brilliant classmate and also represents intelligence and brilliance. My dream is to create a robot that looks human, thinks independently, and feels emotions. Perfection isn’t the goal, but she will be.",
+            // image: "/assets/nova.jpg",
         },
         {
             title: "Headphones Lover",
-            description: "I love wearing headphones and getting lost in music—especially instrumental tracks and songs by sweet-voiced singers.",
+            description: "Equipped with my Bose QC-45 headphones (thanks to my friend 黄琎’s recommendation), I dive into tracks like \"If I Can Stop One Heart From Breaking\" - a beautiful song that never fails to move me.",
             // image: "/assets/headphones.jpg",
         },
         {
             title: "Written by ChatGPT",
-            description: "Yes, all these fun facts were crafted with a little help from ChatGPT!",
+            description: "Every fun fact you see here was crafted by ChatGPT, with a little help from my answers to its clever questions. Proof that AI can be personal, too!",
         },
     ];
+    
     
     
     
