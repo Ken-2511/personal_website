@@ -3,7 +3,7 @@
     z-index: 5;
     width: 2em;
     height: 2em;
-    right: calc(1em + 5px);
+    right: calc(5px);
     top: calc(1em + 5px);
 }
 
